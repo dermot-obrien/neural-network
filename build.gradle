@@ -1,0 +1,49 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'org.dobrien.ml'
+version = '1.0.0.rc-01'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    api 'org.jcuda:jcuda:11.0.0'
+    api 'org.jcuda:jcuda-natives:11.0.0'
+    api 'org.jcuda:jcublas:11.0.0'
+    api 'org.jcuda:jcublas-natives:11.0.0'
+    api 'org.jcuda:jcurand:11.0.0'
+    api 'org.jcuda:jcurand-natives:11.0.0'
+    api 'org.json:json:20200518'
+    testImplementation 'org.encog:encog-core:3.4'
+    testImplementation 'org.graphstream:gs-core:1.3'
+    testImplementation 'org.jblas:jblas:1.2.4'
+}
+
+// Conflict resolution.
+
+configurations.configureEach {
+   // Fail eagerly on version conflict (includes transitive dependencies)
+   // e.g. multiple different versions of the same dependency (group and name are equal)
+   resolutionStrategy.failOnVersionConflict()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
