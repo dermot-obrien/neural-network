@@ -33,7 +33,6 @@ import jcuda.driver.CUfunction;
 import jcuda.driver.CUstream;
 import jcuda.driver.JCudaDriver;
 import org.fjnn.util.util;
-import run.timer;
 
 /**
  *
